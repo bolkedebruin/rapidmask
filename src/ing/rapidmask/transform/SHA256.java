@@ -16,14 +16,11 @@ import org.apache.commons.codec.binary.Hex;
  * @author bolke
  */
 public class SHA256 {
-    private static MessageDigest md;
-    
     public static String hash(String org) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         if (org == null)
             return null;
         
-        if (md == null)
-            md = MessageDigest.getInstance("SHA-256");
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
         
         byte[] digest = md.digest(org.getBytes("UTF-16LE"));
         

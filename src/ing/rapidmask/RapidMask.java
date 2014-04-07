@@ -6,7 +6,6 @@
 
 package ing.rapidmask;
 
-import au.com.bytecode.opencsv.CSVReader;
 import ing.rapidmask.opencsv.HashWriter;
 import ing.rapidmask.json.Config;
 import ing.rapidmask.opencsv.CSVColumnReader;
@@ -16,6 +15,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -46,14 +46,16 @@ public class RapidMask {
             zip.close();*/
             
             FileOutputStream fos = new FileOutputStream(new File("/tmp/star.gzip"));
-            //GZIPOutputStream zip = new GZIPOutputStream(fos);
+  //          GZIPOutputStream zip = new GZIPOutputStream(fos);
+ //           OutputStream out = StreamHelper.asyncOutputStream(zip);
+ //           ThreadedWriter writer = new ThreadedWriter(new OutputStreamWriter(fos, "UTF-8"));
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos, "UTF-8"));
             CSVColumnReader reader = new CSVColumnReader(new FileReader("/tmp/star2002-full.csv"), ',', '\0', false);
             HashSet maskColumns = new HashSet();
             maskColumns.add(2);
             maskColumns.add(4);
             maskColumns.add(6);
-            HashWriter hashWriter = new HashWriter(writer, '|', '\0','"', "\n", maskColumns);
+            HashWriter hashWriter = new HashWriter(writer, '|', HashWriter.NO_QUOTE_CHARACTER, HashWriter.NO_ESCAPE_CHARACTER, "\n", maskColumns);
             hashWriter.writeAll(reader, true);
             writer.close();
             reader.close();

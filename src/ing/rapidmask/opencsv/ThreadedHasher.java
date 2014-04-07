@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author bolke
  */
-public class BufferedHasher {
+public class ThreadedHasher {
     public static final int DEFAULT_BUFFER_SIZE = 1000;
     
     protected int maxSize = DEFAULT_BUFFER_SIZE;
@@ -22,12 +22,12 @@ public class BufferedHasher {
     
     protected int seqno;
     
-    public BufferedHasher(int seqno) {
+    public ThreadedHasher(int seqno) {
         buffer = new ArrayList<>(DEFAULT_BUFFER_SIZE);
         this.seqno = seqno;
     }
     
-    public BufferedHasher(int seqno, int bufferSize) {
+    public ThreadedHasher(int seqno, int bufferSize) {
         buffer = new ArrayList<>(bufferSize);
         maxSize = bufferSize;
         this.seqno = seqno;
@@ -35,7 +35,6 @@ public class BufferedHasher {
     
     public boolean addLine(String[] line) {
         buffer.add(line);
-        buffer.
         return true;
     }
 }
